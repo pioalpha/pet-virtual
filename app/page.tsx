@@ -655,7 +655,7 @@ const Home = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Virtual Pet Manager</h1>
-      <CanvasAnimation spritesheet={spritesheet} sprites={sprites} animations={animations} />
+      <CanvasAnimation spritesheet={spritesheet} animations={animations} />
       <PetControls />
     </div>
   );

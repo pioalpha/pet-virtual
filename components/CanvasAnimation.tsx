@@ -1,15 +1,14 @@
 "use client";
 import { useEffect, useRef } from 'react';
-import { AnimationConfig, AnimationDefinition, SpriteConfig } from '../types/animation';
+import { AnimationConfig, AnimationDefinition } from '../types/animation';
 import { useSearchParams } from 'next/navigation';
 
 interface CanvasAnimationProps {
   spritesheet: string;
-  sprites: SpriteConfig;
   animations: AnimationConfig<Record<string,AnimationDefinition>>;
 }
 
-const CanvasAnimation = ({ spritesheet, sprites, animations }: CanvasAnimationProps) => {
+const CanvasAnimation = ({ spritesheet, animations }: CanvasAnimationProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationQueue = useRef<string[]>([]);
   const currentAnimation = useRef<string | null>(null);
@@ -132,7 +131,7 @@ const CanvasAnimation = ({ spritesheet, sprites, animations }: CanvasAnimationPr
         cancelAnimationFrame(frameRequestId.current);
       }
     };
-  }, [animations, sprites, spritesheet, clientId]);
+  }, [animations, spritesheet, clientId]);
 
   return <canvas ref={canvasRef} width="400" height="400" className="border-2 border-gray-200" />;
 };
