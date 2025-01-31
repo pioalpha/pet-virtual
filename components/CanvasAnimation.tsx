@@ -133,7 +133,7 @@ const CanvasAnimation = ({ spritesheet, animations }: CanvasAnimationProps) => {
     };
   }, [animations, spritesheet, clientId]);
 
-  return <canvas ref={canvasRef} width="400" height="400" className="border-2 border-gray-200" />;
+  return <canvas ref={canvasRef} width="310" height="160" className="border-2 border-gray-200" />;
 };
 
 export default CanvasAnimation;
