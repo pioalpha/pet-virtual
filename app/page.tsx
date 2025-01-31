@@ -1,101 +1,133 @@
-import Image from "next/image";
+import { AnimationConfig, SpriteConfig } from '@/types/animation';
+import CanvasAnimation from '../components/CanvasAnimation';
+import PetControls from '../components/PetControls';
 
-export default function Home() {
+const Home = () => {
+  //const spritesheet = '/sprites/TamagotchiP1P2.png';
+  //const spritesheet = '/sprites/TinyPNG_TamagotchiP1P2.png';
+  const spritesheet = '/sprites/TinyPNG_TamagotchiP1P2-transp.png';
+
+  //  x, y, l, a, o
+
+  const sprites: SpriteConfig = {
+    // static OvoP1J = [[2, 16, 10, 11,""], [13, 16, 10, 11,""], [24, 13, 10, 14,""]]; // V
+    OvoP1J1: { posX: 2, posY: 16, larg: 10, alt: 11 },
+    OvoP1J2: { posX: 13, posY: 16, larg: 10, alt: 11 },
+    OvoP1J3: { posX: 24, posY: 13, larg: 10, alt: 14 },
+
+    // static OvoP1A = [[35, 16, 10, 11,""], [46, 17, 12, 10,""], [59, 14, 16, 13,""]]; // V
+    OvoP1A1: { posX: 35, posY: 16, larg: 10, alt: 11 },
+    OvoP1A2: { posX: 46, posY: 17, larg: 12, alt: 10 },
+    OvoP1A3: { posX: 59, posY: 14, larg: 16, alt: 13 },
+
+    // static OvoP21 = [[76, 16, 10, 11,""], [87, 18, 12, 9,""], [100, 14, 10, 13,""]]; // V
+    OvoP211: { posX: 76, posY: 16, larg: 10, alt: 11 },
+    OvoP212: { posX: 87, posY: 18, larg: 12, alt: 9 },
+    OvoP213: { posX: 100, posY: 14, larg: 10, alt: 13 },
+
+    // static OvoP22 = [[111, 16, 10, 11,""], [122, 18, 12, 9,""], [135, 14, 16, 13,""]]; // V
+    OvoP221: { posX: 111, posY: 16, larg: 10, alt: 11 },
+    OvoP222: { posX: 122, posY: 18, larg: 12, alt: 9 },
+    OvoP223: { posX: 135, posY: 14, larg: 16, alt: 13 },
+
+    // static OvoP23 = [[152, 14, 12, 13,""], [165, 16, 12, 11,""], [178, 12, 16, 15,""]]; // V
+    OvoP231: { posX: 152, posY: 14, larg: 12, alt: 13 },
+    OvoP232: { posX: 165, posY: 16, larg: 12, alt: 11 },
+    OvoP233: { posX: 178, posY: 12, larg: 16, alt: 15 },
+
+    // static BabitchiP1Idle = [[2, 32, 6, 6,""], [9, 35, 8, 3,""]]; // V
+    BabitchiP1Idle1: { posX: 2, posY: 32, larg: 6, alt: 6 },
+    BabitchiP1Idle2: { posX: 9, posY: 35, larg: 8, alt: 3 },
+  };
+
+  const animations: AnimationConfig = {
+    OvoIdle: {
+      loop: 0,
+      quadros: [
+        {
+          duracao: 600,
+          imagens: [
+            { imagem: "OvoP1A1", posicao: "fixa", posX: 11, posY: 2 }
+          ]
+        },
+        {
+          duracao: 600,
+          imagens: [
+            { imagem: "OvoP1A2", posicao: "fixa", posX: 10, posY: 3 }
+          ]
+        },
+      ]
+    },
+    OvoEvoluindo1: {
+      loop: 3,
+      acao: "OvoEvoluindo2",
+      quadros: [
+        {
+          duracao: 300,
+          imagens: [
+            { imagem: "OvoP1A2", posicao: "fixa", posX: 10, posY: 3 }
+          ]
+        },
+        {
+          duracao: 300,
+          imagens: [
+            { imagem: "OvoP1A2", posicao: "fixa", posX: 9, posY: 3 }
+          ]
+        },
+      ]
+    },
+    OvoEvoluindo2: {
+      loop: 1,
+      acao: "BabitchiP1Idle",
+      quadros: [
+        {
+          duracao: 900,
+          imagens: [
+            { imagem: "OvoP1A3", posicao: "fixa", posX: 8, posY: 0 }
+          ]
+        },
+      ]
+    },
+    BabitchiP1Idle: {
+      loop: 0,
+      quadros: [
+        {
+          duracao: 600,
+          imagens: [
+            { imagem: "BabitchiP1Idle1", posicao: "fixa", posX: 13, posY: 9 }
+          ]
+        },
+        {
+          duracao: 600,
+          imagens: [
+            { imagem: "BabitchiP1Idle1", posicao: "fixa", posX: 10, posY: 9 }
+          ]
+        },
+        {
+          duracao: 600,
+          imagens: [
+            { imagem: "BabitchiP1Idle2", posicao: "fixa", posX: 12, posY: 13 }
+          ]
+        },
+        {
+          duracao: 600,
+          imagens: [
+            { imagem: "BabitchiP1Idle2", posicao: "fixa", posX: 10, posY: 13 }
+          ]
+        },
+      ]
+    },
+
+  };
+
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Virtual Pet Manager</h1>
+      <CanvasAnimation spritesheet={spritesheet} sprites={sprites} animations={animations} />
+      <PetControls />
     </div>
   );
-}
+};
+
+export default Home;
