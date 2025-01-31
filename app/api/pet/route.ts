@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendEventToClient } from '../sse/route';
+import { animations } from "@/app/page";
 
 const petState = {
   hungerTimer: 0,
@@ -19,18 +20,22 @@ export async function POST(request: Request) {
         petState.weight += 0.5;
         sendEventToClient(clientId, {
             type: 'triggerAnimation',
-            animation: 'OvoEvoluindo1'
+            animation: animations.ComendoRefeicaoBabitchi.name
           });
         break;
       case 'snack':
         petState.hungerTimer += 1800000; // +30 min
         petState.weight += 0.2;
-        break;
+        sendEventToClient(clientId, {
+          type: 'triggerAnimation',
+          animation: animations.ComendoLancheBabitchi.name
+        });
+      break;
       default:
         // Disparar animação
         sendEventToClient(clientId, {
             type: 'triggerAnimation',
-            animation: 'OvoIdle'
+            animation: animations.OvoEvoluindo1.name
         });
       // Adicione outros casos...
     }

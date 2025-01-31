@@ -1,5 +1,7 @@
 //export const runtime = 'edge'; // Usaria runtime Edge para streaming eficiente mas causa erro da perda do objeto clients
 
+import { animations } from "@/app/page";
+
 const clients = new Map();
 
 export async function GET(request: Request) {
@@ -14,7 +16,7 @@ export async function GET(request: Request) {
 
    sendEventToClient(clientId!, {
     type: 'triggerAnimation',
-    animation: 'OvoIdle'
+    animation: animations.OvoIdle.name
   });
 
   // Limpeza quando a conexão for fechada

@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useRef } from 'react';
-import { AnimationConfig, SpriteConfig } from '../types/animation';
+import { AnimationConfig, AnimationDefinition, SpriteConfig } from '../types/animation';
 import { useSearchParams } from 'next/navigation';
 
 interface CanvasAnimationProps {
   spritesheet: string;
   sprites: SpriteConfig;
-  animations: AnimationConfig;
+  animations: AnimationConfig<Record<string,AnimationDefinition>>;
 }
 
 const CanvasAnimation = ({ spritesheet, sprites, animations }: CanvasAnimationProps) => {
@@ -73,18 +73,17 @@ const CanvasAnimation = ({ spritesheet, sprites, animations }: CanvasAnimationPr
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         frame.imagens.forEach(({ imagem, posX, posY }) => {
-          const sprite = sprites[imagem];
-          if (sprite && img.complete) {
+          if (img.complete) {
             ctx.drawImage(
               img,
-              sprite.posX,
-              sprite.posY,
-              sprite.larg,
-              sprite.alt,
+              imagem.posX,
+              imagem.posY,
+              imagem.larg,
+              imagem.alt,
               posX,
               posY,
-              sprite.larg,
-              sprite.alt
+              imagem.larg,
+              imagem.alt
             );
           }
         });
